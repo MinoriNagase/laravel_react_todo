@@ -3,17 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Services\TaskServiceInterface;
+use App\Http\Resources\Task\IndexResource;
 
 class TaskController extends Controller
 {
+    private TaskServiceInterface $taskService;
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param TaskServiceInterface $taskService;
      */
-    public function index()
+    public function __construct(TaskServiceInterface $taskService)
     {
-        //
+        $this->taskService = $taskService;
+    }
+
+    /**
+     * 未完了タスクを全て取得する
+     * @return IndexResource
+     */
+    public function index(): IndexResource
+    {
+        $tasks = $this->taskService->fetchIncomplete();
+        return new IndexResource($tasks);
     }
 
     /**
