@@ -45,6 +45,14 @@ class TaskRepository implements TaskRepositoryInterface
         $task->update(['status' => self::$STATUS_COMPLETE]);
         return $task;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function deleteById(int $id): void
+    {
+        $this->task->destroy($id);
+    }
 }
 
 

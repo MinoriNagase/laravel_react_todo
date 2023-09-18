@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Task;
 use App\Repositories\TaskRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class TaskService implements TaskServiceInterface
 {
@@ -40,5 +41,15 @@ class TaskService implements TaskServiceInterface
     public function updateToComplete(int $id): Task
     {
         return $this->taskRepository->updateToComplete($id);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function deleteById(int $id): void
+    {
+        DB::transaction(function () use ($id) {
+            $this->taskRepository->deleteById($id);
+        });
     }
 }

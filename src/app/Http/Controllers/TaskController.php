@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Task\PostRequest;
 use App\Http\Requests\Task\UpdateToCompleteRequest;
+use App\Http\Requests\Task\DestroyRequest;
 use App\Services\TaskServiceInterface;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,5 +51,16 @@ class TaskController extends Controller
     {
         $task = $this->taskService->updateToComplete($request->getTaskId());
         return response()->json($task, Response::HTTP_OK);
+    }
+
+    /**
+     * 不要なタスクを削除する
+     * @param DestroyRequest $request
+     * @return JsonResponse
+     */
+    public function destroy(DestroyRequest $request): JsonResponse
+    {
+        $this->taskService->deleteById($request->getTaskId());
+        return response()->json('タスクを削除しました', Response::HTTP_OK);
     }
 }

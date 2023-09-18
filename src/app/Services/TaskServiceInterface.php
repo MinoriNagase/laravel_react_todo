@@ -26,4 +26,11 @@ interface TaskServiceInterface
      * @return Task
      */
     public function updateToComplete(int $id): Task;
+
+    /**
+     * 不要なタスクを削除する
+     * @param int $id
+     * @return void
+     */
+    public function deleteById(int $id): void;
 }
