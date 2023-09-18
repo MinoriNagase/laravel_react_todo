@@ -19,4 +19,11 @@ interface TaskServiceInterface
      * @return Task
      */
     public function create(string $content): Task;
+
+    /**
+     * タスクを完了させる
+     * @param int $id
+     * @return Task
+     */
+    public function updateToComplete(int $id): Task;
 }

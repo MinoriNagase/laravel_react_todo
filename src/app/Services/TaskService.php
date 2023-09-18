@@ -33,4 +33,12 @@ class TaskService implements TaskServiceInterface
     {
         return $this->taskRepository->create($content);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function updateToComplete(int $id): Task
+    {
+        return $this->taskRepository->updateToComplete($id);
+    }
 }

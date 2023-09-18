@@ -10,6 +10,7 @@ class TaskRepository implements TaskRepositoryInterface
     private Task $task;
 
     private static int $STATUS_INCOMPLETE = 0;
+    private static int $STATUS_COMPLETE = 1;
 
     /**
      * @param Task $task;
@@ -27,9 +28,22 @@ class TaskRepository implements TaskRepositoryInterface
         return $this->task->where('status', self::$STATUS_INCOMPLETE)->get();
     }
 
+    /**
+     * @inheritDoc
+     */
     public function create(string $content): Task
     {
         return $this->task->create(['content' => $content]);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function updateToComplete(int $id): Task
+    {
+        $task = $this->task->find($id);
+        $task->update(['status' => self::$STATUS_COMPLETE]);
+        return $task;
     }
 }
 
