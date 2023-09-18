@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Database\Eloquent\Collection;
+use App\Models\Task;
 
 interface TaskServiceInterface
 {
@@ -11,4 +12,11 @@ interface TaskServiceInterface
      * @return Collection|null
      */
     public function fetchIncomplete(): ?Collection;
+
+    /**
+     * タスクを作成する
+     * @param string $content
+     * @return Task
+     */
+    public function create(string $content): Task;
 }

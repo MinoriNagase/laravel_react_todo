@@ -26,6 +26,11 @@ class TaskRepository implements TaskRepositoryInterface
     {
         return $this->task->where('status', self::$STATUS_INCOMPLETE)->get();
     }
+
+    public function create(string $content): Task
+    {
+        return $this->task->create(['content' => $content]);
+    }
 }
 
 

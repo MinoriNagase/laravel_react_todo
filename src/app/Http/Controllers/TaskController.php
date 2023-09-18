@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\Task\PostRequest;
 use App\Services\TaskServiceInterface;
-use App\Http\Resources\Task\IndexResource;
+use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class TaskController extends Controller
 {
@@ -20,56 +21,22 @@ class TaskController extends Controller
 
     /**
      * 未完了タスクを全て取得する
-     * @return IndexResource
+     * @return JsonResponse
      */
-    public function index(): IndexResource
+    public function index(): JsonResponse
     {
         $tasks = $this->taskService->fetchIncomplete();
-        return new IndexResource($tasks);
+        return response()->json($tasks, Response::HTTP_OK);
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * タスクを作成する
+     * @param PostRequest $request
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(PostRequest $request): JsonResponse
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $task = $this->taskService->create($request->getTaskContent());
+        return response()->json($task, Response::HTTP_CREATED);
     }
 }

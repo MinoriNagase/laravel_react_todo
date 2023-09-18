@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Task;
 use App\Repositories\TaskRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -23,5 +24,13 @@ class TaskService implements TaskServiceInterface
     public function fetchIncomplete(): ?Collection
     {
         return $this->taskRepository->fetchIncomplete();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function create(string $content): Task
+    {
+        return $this->taskRepository->create($content);
     }
 }
