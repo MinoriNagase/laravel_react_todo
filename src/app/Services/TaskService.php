@@ -32,7 +32,9 @@ class TaskService implements TaskServiceInterface
      */
     public function create(string $content): Task
     {
-        return $this->taskRepository->create($content);
+        return DB::transaction(function () use ($content) {
+            return $this->taskRepository->create($content);
+        });
     }
 
     /**
@@ -40,7 +42,9 @@ class TaskService implements TaskServiceInterface
      */
     public function updateToComplete(int $id): Task
     {
-        return $this->taskRepository->updateToComplete($id);
+        return DB::transaction(function () use ($id) {
+            return $this->taskRepository->updateToComplete($id);
+        });
     }
 
     /**

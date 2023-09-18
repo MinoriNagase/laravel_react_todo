@@ -27,8 +27,9 @@ class TaskController extends Controller
      */
     public function index(): JsonResponse
     {
-        $tasks = $this->taskService->fetchIncomplete();
-        return response()->json($tasks, Response::HTTP_OK);
+        return response()->json([
+            'data' => $this->taskService->fetchIncomplete()
+        ]);
     }
 
     /**
@@ -38,8 +39,9 @@ class TaskController extends Controller
      */
     public function store(PostRequest $request): JsonResponse
     {
-        $task = $this->taskService->create($request->getTaskContent());
-        return response()->json($task, Response::HTTP_CREATED);
+        return response()->json([
+            'data' => $this->taskService->create($request->getTaskContent())
+        ], Response::HTTP_CREATED);
     }
 
     /**
@@ -49,18 +51,18 @@ class TaskController extends Controller
      */
     public function updateToComplete(UpdateToCompleteRequest $request): JsonResponse
     {
-        $task = $this->taskService->updateToComplete($request->getTaskId());
-        return response()->json($task, Response::HTTP_OK);
+        return response()->json([
+            'data' => $this->taskService->updateToComplete($request->getTaskId())
+        ]);
     }
 
     /**
      * 不要なタスクを削除する
      * @param DestroyRequest $request
-     * @return JsonResponse
+     * @return void
      */
-    public function destroy(DestroyRequest $request): JsonResponse
+    public function destroy(DestroyRequest $request): void
     {
         $this->taskService->deleteById($request->getTaskId());
-        return response()->json('タスクを削除しました', Response::HTTP_OK);
     }
 }
