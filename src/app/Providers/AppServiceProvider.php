@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Providers;
 
@@ -13,7 +13,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(
+            \App\Repositories\TaskRepositoryInterface::class,
+            \App\Repositories\TaskRepository::class,
+        );
+        $this->app->bind(
+            \App\Services\TaskServiceInterface::class,
+            \App\Services\TaskService::class,
+        );
     }
 
     /**
