@@ -1,7 +1,7 @@
 import './bootstrap';
 
 import ReactDOM from 'react-dom/client';
-import Counter from './components/Counter';
+import Counter from './pages/Counter';
 
 function App() {
     return (
