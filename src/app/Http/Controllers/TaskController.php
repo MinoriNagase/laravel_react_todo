@@ -27,9 +27,9 @@ class TaskController extends Controller
      */
     public function index(): JsonResponse
     {
-        return response()->json([
-            'data' => $this->taskService->fetchIncomplete()
-        ]);
+        return response()->json(
+            $this->taskService->fetchIncomplete(), Response::HTTP_OK
+        );
     }
 
     /**
@@ -39,9 +39,9 @@ class TaskController extends Controller
      */
     public function store(PostRequest $request): JsonResponse
     {
-        return response()->json([
-            'data' => $this->taskService->create($request->getTaskContent())
-        ], Response::HTTP_CREATED);
+        return response()->json(
+            $this->taskService->create($request->getTaskContent()), Response::HTTP_CREATED
+        );
     }
 
     /**
@@ -51,9 +51,9 @@ class TaskController extends Controller
      */
     public function updateToComplete(UpdateToCompleteRequest $request): JsonResponse
     {
-        return response()->json([
-            'data' => $this->taskService->updateToComplete($request->getTaskId())
-        ]);
+        return response()->json(
+            $this->taskService->updateToComplete($request->getTaskId()), Response::HTTP_OK
+        );
     }
 
     /**
