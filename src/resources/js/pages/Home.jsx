@@ -1,4 +1,5 @@
 import React from 'react';
+import Table from '../components/Table';
 import {Link} from "react-router-dom";
 
 function Home() {
@@ -14,19 +15,7 @@ function Home() {
             <div className="row justify-content-center">
                 <div className="col-md-10">
                     <h1>タスク管理</h1>
-                    <table className="table">
-                        {/* タスク表示部分 */}
-                        <tbody>
-                            {tasks.map((task, index) => (
-                                <tr key={index}>
-                                    <td className="text-center">{task.content}</td>
-                                    <td className="text-center">
-                                        <button className="btn btn-primary">完了</button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    <Table tasks={tasks} />
                     <Link to={'/page'}>Pageへ遷移</Link>
                 </div>
             </div>
