@@ -5,11 +5,6 @@ import {Link} from "react-router-dom";
 
 function Home() {
 
-    // タスク内容の配列
-    const rows = [
-        {content: '洗濯物を干す'}, {content: '掃除機をかける'}
-    ]
-
     const [tasks, setTasks] = useState([]);
 
     // アクセス時1回だけリクエストする
@@ -29,6 +24,12 @@ function Home() {
                 console.log('通信に失敗しました');
             });
     }
+
+    // tasksの要素ごとにrowsで扱える形式にする
+    const rows = tasks.map((task) => ({
+        content: task.content,
+        completeButton: <button color="primary">完了</button>,
+    }));
 
     return (
         <div className="container">
