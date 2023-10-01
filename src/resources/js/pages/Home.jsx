@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import IncompleteTaskList from '../components/IncompleteTaskList';
+import TaskForm from '../components/TaskForm';
 
 function Home() {
 
+    const [taskContent, setTaskContent] = useState('');
     const [tasks, setTasks] = useState([]);
 
     // getTasksはアクセス時に1回だけ走る
@@ -19,8 +21,22 @@ function Home() {
                 setTasks(response.data);
                 console.log(response.data);
             })
-            .catch(() => {
-                console.log('通信に失敗しました');
+            .catch(error => {
+                console.error('通信に失敗しました', error);
+            });
+    }
+
+    // タスクを追加する
+    const addTask = () => {
+        axios
+            .post('/api/tasks', {content: taskContent})
+            .then((response) => {
+                const newTask = response.data
+                setTasks([...tasks, newTask]);
+                setTaskContent('');
+            })
+            .catch(error => {
+                console.error('タスク追加できませんでした', error);
             });
     }
 
@@ -41,9 +57,7 @@ function Home() {
     const rows = tasks.map((task) => ({
         id: task.id,
         content: task.content,
-        completeButton: (
-            <button color="primary" onClick={() => completeTask(task.id)}>完了</button>
-        )
+        completeButton: (<button color="primary" onClick={() => completeTask(task.id)}>完了</button>)
     }));
 
     return (
@@ -51,12 +65,13 @@ function Home() {
             <div className="row justify-content-center">
                 <div className="col-md-10">
                     <h1>TODO</h1>
-                    {/*未完了TODO一覧*/}
+                    {/*タスク入力フォーム*/}
+                    <TaskForm taskContent={taskContent} setTaskContent={setTaskContent} addTask={addTask}/>
+                    {/*未完了タスク一覧*/}
                     <IncompleteTaskList rows={rows} completeTask={completeTask}/>
                 </div>
             </div>
-        </div>
-    );
+        </div>);
 }
 
 export default Home;
