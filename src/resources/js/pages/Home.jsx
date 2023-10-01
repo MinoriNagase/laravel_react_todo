@@ -1,19 +1,18 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import Table from '../components/Table';
-import {Link} from "react-router-dom";
+import IncompleteTaskList from '../components/IncompleteTaskList';
 
 function Home() {
 
     const [tasks, setTasks] = useState([]);
 
-    // アクセス時1回だけリクエストする
+    // getTasksはアクセス時に1回だけ走る
     useEffect(() => {
-        getTasksData();
+        getTasks();
     }, [])
 
-    // api通信
-    const getTasksData = () => {
+    // タスク一覧取得
+    const getTasks = () => {
         axios
             .get('/api/tasks')
             .then(response => {
@@ -25,19 +24,20 @@ function Home() {
             });
     }
 
+    // タスクを未完了から完了にする
     const completeTask = (taskId) => {
         axios
             .patch(`/api/tasks/${taskId}/complete`)
             .then(response => {
                 console.log('タスクが完了しました', response.data);
-                getTasksData()
+                getTasks()
             })
             .catch(error => {
                 console.error('タスク完了できませんでした', error);
             });
     }
 
-    // tasksの要素ごとにrowsで扱える形式にする
+    // taskの要素ごとにrowsで扱える形式にする
     const rows = tasks.map((task) => ({
         id: task.id,
         content: task.content,
@@ -50,12 +50,13 @@ function Home() {
         <div className="container">
             <div className="row justify-content-center">
                 <div className="col-md-10">
-                    <h1>未完了タスク一覧</h1>
-                    <Table rows={rows} completeTask={completeTask}/>
-                    <Link to={'/page'}>Pageへ遷移</Link>
+                    <h1>TODO</h1>
+                    {/*未完了TODO一覧*/}
+                    <IncompleteTaskList rows={rows} completeTask={completeTask}/>
                 </div>
             </div>
-        </div>);
+        </div>
+    );
 }
 
 export default Home;
