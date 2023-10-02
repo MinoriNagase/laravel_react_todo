@@ -1,17 +1,18 @@
 import React from 'react';
+import {Button, TextField} from '@mui/material';
 
 function TaskForm(props) {
     const {taskContent, setTaskContent, addTask} = props;
-    return (
-        <div className="input-aria">
-            <input type="text"
-                   value={taskContent}
-                   onChange={(e) => {
-                       setTaskContent(e.target.value)
-                   }}
-                   placeholder="新しいタスクを入力"
+    return (<div className="input-area">
+            <TextField
+                variant="outlined"
+                onChange={(e) => setTaskContent(e.target.value)}
+                value={taskContent}
+                label="新しいタスクを入力"
             />
-            <button className={"btn btn-secondary"} onClick={addTask}>追加</button>
+            <Button variant="contained" color="primary" onClick={addTask}>
+                追加
+            </Button>
         </div>);
 }
 

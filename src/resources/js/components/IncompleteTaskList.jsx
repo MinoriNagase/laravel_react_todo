@@ -1,18 +1,24 @@
 import React from 'react';
+import {Button, Paper, Table, TableBody, TableCell, TableContainer, TableRow} from '@mui/material';
 
 function IncompleteTaskList(props) {
     const {rows, completeTask} = props;
-    return (
-        <table className="table">
-            <tbody>
-            {rows.map((row, index) => (<tr key={index}>
-                <td className="text-center">{row.content}</td>
-                <td className="text-center">
-                    <button className="btn btn-primary" onClick={() => completeTask(row.id)}>完了</button>
-                </td>
-            </tr>))}
-            </tbody>
-        </table>);
+    return (<div className="table">
+            <TableContainer component={Paper}>
+                <Table>
+                    <TableBody>
+                        {rows.map((row, index) => (<TableRow key={index}>
+                                <TableCell>{row.content}</TableCell>
+                                <TableCell>
+                                    <Button variant="contained" color="secondary" onClick={() => completeTask(row.id)}>
+                                        完了
+                                    </Button>
+                                </TableCell>
+                            </TableRow>))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </div>);
 }
 
 export default IncompleteTaskList;

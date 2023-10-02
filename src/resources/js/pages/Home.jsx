@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import IncompleteTaskList from '../components/IncompleteTaskList';
+import {Container, Typography} from '@mui/material';
 import TaskForm from '../components/TaskForm';
+import IncompleteTaskList from '../components/IncompleteTaskList';
 
 function Home() {
 
@@ -60,18 +61,11 @@ function Home() {
         completeButton: (<button color="primary" onClick={() => completeTask(task.id)}>完了</button>)
     }));
 
-    return (
-        <div className="container">
-            <div className="row justify-content-center">
-                <div className="col-md-10">
-                    <h1>TODO</h1>
-                    {/*タスク入力フォーム*/}
-                    <TaskForm taskContent={taskContent} setTaskContent={setTaskContent} addTask={addTask}/>
-                    {/*未完了タスク一覧*/}
-                    <IncompleteTaskList rows={rows} completeTask={completeTask}/>
-                </div>
-            </div>
-        </div>);
+    return (<Container>
+        <Typography variant="h1">未完了タスク一覧</Typography>
+        <TaskForm taskContent={taskContent} setTaskContent={setTaskContent} addTask={addTask}/>
+        <IncompleteTaskList rows={rows} completeTask={completeTask}/>
+    </Container>);
 }
 
 export default Home;
