@@ -3,7 +3,14 @@ import {Button, TextField} from '@mui/material';
 
 function TaskForm(props) {
     const {taskContent, setTaskContent, addTask} = props;
-    return (<div className="input-area">
+    const formContainerStyle = {
+        display: 'flex',
+        alignItems: 'center',
+        marginTop: '16px',
+        marginBottom: '16px',
+    };
+    return (
+        <div className="input-area" style={formContainerStyle}>
             <TextField
                 variant="outlined"
                 onChange={(e) => setTaskContent(e.target.value)}
@@ -13,7 +20,8 @@ function TaskForm(props) {
             <Button variant="contained" color="primary" onClick={addTask}>
                 追加
             </Button>
-        </div>);
+        </div>
+    );
 }
 
 export default TaskForm;
