@@ -61,11 +61,13 @@ function Home() {
         completeButton: (<button color="primary" onClick={() => completeTask(task.id)}>完了</button>)
     }));
 
-    return (<Container>
-        <Typography variant="h1">未完了タスク一覧</Typography>
-        <TaskForm taskContent={taskContent} setTaskContent={setTaskContent} addTask={addTask}/>
-        <IncompleteTaskList rows={rows} completeTask={completeTask}/>
-    </Container>);
+    return (
+        <Container>
+            <Typography variant="h3">未完了タスク一覧</Typography>
+            <TaskForm taskContent={taskContent} setTaskContent={setTaskContent} addTask={addTask}/>
+            <IncompleteTaskList rows={rows} completeTask={completeTask}/>
+        </Container>
+    );
 }
 
 export default Home;

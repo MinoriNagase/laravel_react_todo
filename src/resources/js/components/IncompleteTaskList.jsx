@@ -3,14 +3,18 @@ import {Button, Paper, Table, TableBody, TableCell, TableContainer, TableRow} fr
 
 function IncompleteTaskList(props) {
     const {rows, completeTask} = props;
-    return (<div className="table">
+    return (
+        <div className="table">
             <TableContainer component={Paper}>
                 <Table>
                     <TableBody>
                         {rows.map((row, index) => (<TableRow key={index}>
                                 <TableCell>{row.content}</TableCell>
                                 <TableCell>
-                                    <Button variant="contained" color="secondary" onClick={() => completeTask(row.id)}>
+                                    <Button
+                                        variant="contained"
+                                        color="secondary"
+                                        onClick={() => completeTask(row.id)}>
                                         完了
                                     </Button>
                                 </TableCell>
@@ -18,7 +22,8 @@ function IncompleteTaskList(props) {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </div>);
+        </div>
+    );
 }
 
 export default IncompleteTaskList;

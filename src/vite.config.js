@@ -10,6 +10,11 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    resolve: {
+        alias: {
+          '@components': '/src/resources/js/components',
+        },
+    },
     server: {
         host: true,
         hmr: {
